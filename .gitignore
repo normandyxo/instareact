@@ -30,6 +30,7 @@ $RECYCLE.BIN/
 node_modules/
 .tmp
 dist
+npm-debug.log
 /src/scripts/main.js
 
 # Webstorm
