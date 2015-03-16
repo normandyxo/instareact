@@ -19,9 +19,10 @@ var app = express(),
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', feed);
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
 
 
 // App routing
