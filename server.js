@@ -6,7 +6,9 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
-    localtunnel = require('localtunnel');
+    bodyParser = require('body-parser'),
+    localtunnel = require('localtunnel'),
+    socketIO = require('socket.io')(http);
 
 /**
  * App components
@@ -20,6 +22,7 @@ var app = express(),
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 app.use('/api', feed);
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -40,4 +43,8 @@ http.createServer(app).listen(app.get('port'), function(){
     tunnel.on('close', function() {
         // tunnels are closed
     });
+});
+
+socketIO.on('connection', function () {
+    console.log('user connected');
 });
